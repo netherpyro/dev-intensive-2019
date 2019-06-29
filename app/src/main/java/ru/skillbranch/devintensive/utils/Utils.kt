@@ -20,14 +20,75 @@ object Utils {
     }
 
     fun toInitials(firstName: String?, lastName: String?): String? {
-        val leftInitial = firstName?.trim()?.firstOrNull()?.toUpperCase()
-        val rightInitial = lastName?.trim()?.firstOrNull()?.toUpperCase()
+        val leftInitial = firstName?.trim()
+            ?.firstOrNull()
+            ?.toUpperCase()
+        val rightInitial = lastName?.trim()
+            ?.firstOrNull()
+            ?.toUpperCase()
 
         if (leftInitial == null && rightInitial == null) {
             return null
         }
 
         return "${leftInitial ?: ""}${rightInitial ?: ""}"
+    }
+
+    fun transliteration(payload: String, divider: String = " "): String {
+        var result = payload.trim()
+
+        for (char in payload.asIterable()) {
+            val upperCase = char.isUpperCase()
+
+            val translitedChar = if (upperCase) {
+                getTranslitedStr(char.toLowerCase()).toUpperCase()
+            } else {
+                getTranslitedStr(char)
+            }
+
+            result = result.replace(char.toString(), translitedChar)
+        }
+
+        return result.replace(Regex("""\s+"""), divider)
+    }
+
+    private fun getTranslitedStr(char: Char): String {
+        return when (char) {
+            'а' -> "a"
+            'б' -> "b"
+            'в' -> "v"
+            'г' -> "g"
+            'д' -> "d"
+            'е' -> "e"
+            'ё' -> "e"
+            'ж' -> "zh"
+            'з' -> "z"
+            'и' -> "i"
+            'й' -> "i"
+            'к' -> "k"
+            'л' -> "l"
+            'м' -> "m"
+            'н' -> "n"
+            'о' -> "o"
+            'п' -> "p"
+            'р' -> "r"
+            'с' -> "s"
+            'т' -> "t"
+            'у' -> "u"
+            'ф' -> "f"
+            'х' -> "h"
+            'ц' -> "c"
+            'ч' -> "ch"
+            'ш' -> "sh"
+            'щ' -> "sh"
+            'ъ' -> ""
+            'ы' -> "i"
+            'ь' -> ""
+            'э' -> "e"
+            'ю' -> "yu"
+            'я' -> "ya"
+            else -> char.toString()
+        }
     }
 
     fun getPluralStringValue(value: Long, units: TimeUnits): String {
