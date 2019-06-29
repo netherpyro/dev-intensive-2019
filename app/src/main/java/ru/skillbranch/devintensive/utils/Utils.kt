@@ -41,7 +41,7 @@ object Utils {
             val upperCase = char.isUpperCase()
 
             val translitedChar = if (upperCase) {
-                getTranslitedStr(char.toLowerCase()).toUpperCase()
+                getTranslitedStr(char.toLowerCase()).capitalize()
             } else {
                 getTranslitedStr(char)
             }
@@ -107,7 +107,7 @@ object Utils {
             }
             TimeUnits.MINUTE -> {
                 when (plural) {
-                    Utils.Plural.ONE -> "минута"
+                    Utils.Plural.ONE -> "минуту"
                     Utils.Plural.FEW -> "минуты"
                     Utils.Plural.MANY -> "минут"
                     Utils.Plural.OTHER -> "минут"
