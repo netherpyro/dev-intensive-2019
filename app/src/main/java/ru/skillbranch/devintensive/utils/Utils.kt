@@ -19,6 +19,17 @@ object Utils {
         return firstName to lastName
     }
 
+    fun toInitials(firstName: String?, lastName: String?): String? {
+        val leftInitial = firstName?.trim()?.firstOrNull()?.toUpperCase()
+        val rightInitial = lastName?.trim()?.firstOrNull()?.toUpperCase()
+
+        if (leftInitial == null && rightInitial == null) {
+            return null
+        }
+
+        return "${leftInitial ?: ""}${rightInitial ?: ""}"
+    }
+
     fun getPluralStringValue(value: Long, units: TimeUnits): String {
         return getStringOfPlural(getPlural(value), units)
     }
