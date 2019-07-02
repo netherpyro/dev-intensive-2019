@@ -8,13 +8,13 @@ import kotlin.math.abs
  */
 object Utils {
 
-    fun parseFullName(fullName: String?): Pair<String, String> {
-        if (fullName.isNullOrBlank()) return "null" to "null"
+    fun parseFullName(fullName: String?): Pair<String?, String?> {
+        if (fullName.isNullOrBlank()) return null to null
 
         val parts = fullName.trim()
             .split(" ")
-        val firstName = parts.getOrNull(0) ?: "null"
-        val lastName = parts.getOrNull(1) ?: "null"
+        val firstName = parts.getOrNull(0)
+        val lastName = parts.getOrNull(1)
 
         return firstName to lastName
     }
