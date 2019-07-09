@@ -81,7 +81,11 @@ fun Date.humanizeDiff(date: Date = Date()): String {
 }
 
 enum class TimeUnits {
-    SECOND, MINUTE, HOUR, DAY
+    SECOND, MINUTE, HOUR, DAY;
+
+    fun plural(value: Int): String {
+        return value.toString().plus(" ").plus(Utils.getPluralStringValue(value.toLong(), this))
+    }
 }
 
 enum class Interval(val mSecRange: LongRange) {

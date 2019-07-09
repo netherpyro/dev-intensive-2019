@@ -99,7 +99,7 @@ object Utils {
         return when (units) {
             TimeUnits.SECOND -> {
                 when (plural) {
-                    Utils.Plural.ONE -> "секунда"
+                    Utils.Plural.ONE -> "секунду"
                     Utils.Plural.FEW -> "секунды"
                     Utils.Plural.MANY -> "секунд"
                     Utils.Plural.OTHER -> "секунд"
