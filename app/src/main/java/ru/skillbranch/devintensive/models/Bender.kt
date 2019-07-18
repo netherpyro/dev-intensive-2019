@@ -7,8 +7,6 @@ import androidx.core.text.isDigitsOnly
  */
 class Bender(var status: Status = Status.NORMAL, var question: Question = Question.NAME) {
 
-    private var counter = 0
-
     fun askQuestion() = question.question
 
     fun listenAnswer(answer: String): Pair<String, Triple<Int, Int, Int>> {
@@ -21,17 +19,13 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
         } else if (question.answers.contains(answer.toLowerCase())) {
             question = question.nextQuestion()
             resultStr = "Отлично - ты справился\n${question.question}"
-
         } else {
-            ++counter
+            status = status.nextStatus()
 
-            if (counter > 3) {
-                status = Status.NORMAL
+            if (status == Status.NORMAL) {
                 question = Question.NAME
-                counter = 0
                 resultStr = "Это неправильный ответ. Давай все по новой\n${question.question}"
             } else {
-                status = status.nextStatus()
                 resultStr = "Это неправильный ответ\n${question.question}"
             }
         }
