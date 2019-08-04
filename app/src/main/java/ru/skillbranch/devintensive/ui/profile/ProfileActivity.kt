@@ -54,28 +54,28 @@ class ProfileActivity : AppCompatActivity() {
         }
     }
 
-    private fun showCurrentMode(isEdit: Boolean) {
+    private fun showCurrentMode(editMode: Boolean) {
         val info = viewFields.filter {
             setOf("firstName", "lastName", "about", "repository").contains(it.key)
         }
 
         info.forEach {
             val v = it.value as EditText
-            v.isFocusable = isEdit
-            v.isFocusableInTouchMode = isEdit
-            v.isEnabled = isEdit
-            v.background.alpha = if (isEdit) 255 else 0
+            v.isFocusable = editMode
+            v.isFocusableInTouchMode = editMode
+            v.isEnabled = editMode
+            v.background.alpha = if (editMode) 255 else 0
         }
 
-        ic_eye.visibility = if (isEdit) View.GONE else View.VISIBLE
-        til_about.isCounterEnabled = isEdit
+        ic_eye.visibility = if (editMode) View.GONE else View.VISIBLE
+        til_about.isCounterEnabled = editMode
 
         with(btn_edit) {
-            val filter: ColorFilter? = if (isEdit) {
+            val filter: ColorFilter? = if (editMode) {
                 PorterDuffColorFilter(getThemeAccentColor(), PorterDuff.Mode.SRC_IN)
             } else null
 
-            val icon = if (isEdit) {
+            val icon = if (editMode) {
                 resources.getDrawable(R.drawable.ic_save_black_24dp, theme)
             } else {
                 resources.getDrawable(R.drawable.ic_edit_black_24dp, theme)
