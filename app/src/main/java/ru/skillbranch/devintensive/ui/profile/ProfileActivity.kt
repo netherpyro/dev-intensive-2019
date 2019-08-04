@@ -17,10 +17,10 @@ import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.activity_profile.*
 import ru.skillbranch.devintensive.R
 import ru.skillbranch.devintensive.models.Profile
+import ru.skillbranch.devintensive.utils.Utils
 import ru.skillbranch.devintensive.viewmodels.ProfileViewModel
 
 class ProfileActivity : AppCompatActivity() {
-
 
     companion object {
         const val KEY_EDIT_MODE = "KEY_EDIT_MODE"
@@ -106,6 +106,13 @@ class ProfileActivity : AppCompatActivity() {
                     v.text = it[k].toString()
                 }
             }
+
+        if (profile.firstName.isNotBlank() || profile.lastName.isNotBlank()) {
+            iv_avatar.generateAvatar(Utils.toInitials(profile.firstName, profile.lastName), 48f, theme)
+        } else {
+            iv_avatar.setImageDrawable(getDrawable(R.drawable.avatar_default))
+            iv_avatar.setBorderWidth(0f)
+        }
     }
 
     private fun updateRepository(isError: Boolean) {
@@ -114,7 +121,9 @@ class ProfileActivity : AppCompatActivity() {
 
     private fun updateRepoError(isError: Boolean) {
         wr_repository.isErrorEnabled = isError
-        wr_repository.error = if (isError) "Невалидный адрес репозитория" else null
+        wr_repository.error = if (isError) {
+            getString(R.string.error_invalid_repo)
+        } else null
     }
 
     private fun showCurrentMode(editMode: Boolean) {

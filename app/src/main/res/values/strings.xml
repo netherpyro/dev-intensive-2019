@@ -6,4 +6,6 @@
     <string name="profile_hint_about">О себе</string>
     <string name="profile_hint_last_name">Фамилия</string>
     <string name="profile_hint_first_name">Имя</string>
+
+    <string name="error_invalid_repo">Невалидный адрес репозитория</string>
 </resources>

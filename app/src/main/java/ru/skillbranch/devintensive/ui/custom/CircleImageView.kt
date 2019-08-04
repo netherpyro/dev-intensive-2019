@@ -21,6 +21,7 @@ import androidx.core.content.ContextCompat
 import ru.skillbranch.devintensive.App
 import ru.skillbranch.devintensive.R
 import ru.skillbranch.devintensive.extensions.dpToPx
+import ru.skillbranch.devintensive.extensions.spToPx
 import kotlin.math.min
 
 
@@ -67,6 +68,21 @@ class CircleImageView @JvmOverloads constructor(
         invalidate()
     }
 
+    fun generateAvatar(text: String?, sizeSp: Float, theme: Resources.Theme) {
+        /* don't render if initials haven't changed */
+        if (text != this.text) {
+            val image =
+                    if (text == null) {
+                        generateDefAvatar(theme)
+                    } else {
+                        generateLetterAvatar(text, sizeSp, theme)
+                    }
+
+            this.text = text
+            setImageBitmap(image)
+        }
+    }
+
     override fun onDraw(canvas: Canvas) {
         var bitmap = getBitmapFromDrawable() ?: return
         if (width == 0 || height == 0) return
@@ -82,24 +98,23 @@ class CircleImageView @JvmOverloads constructor(
         canvas.drawBitmap(bitmap, 0F, 0F, null)
     }
 
-    fun generateAvatar(text: String?, sizeSp: Int, theme: Resources.Theme) {
-        /* don't render if initials haven't changed */
-        if (text != this.text) {
-            val image =
-                    if (text == null) {
-                        generateDefAvatar(theme)
-                    } else generateLetterAvatar(text, sizeSp, theme)
+    private fun generateDefAvatar(theme: Resources.Theme): Bitmap {
+        val image = Bitmap.createBitmap(layoutParams.height, layoutParams.height, Config.ARGB_8888)
+        val color = TypedValue()
+        theme.resolveAttribute(R.attr.colorAccent, color, true)
 
-            this.text = text
-            setImageBitmap(image)
-        }
+
+        val canvas = Canvas(image)
+        canvas.drawColor(color.data)
+
+        return image
     }
 
-    private fun generateLetterAvatar(text: String, sizeSp: Int, theme: Resources.Theme): Bitmap {
+    private fun generateLetterAvatar(text: String, sizeSp: Float, theme: Resources.Theme): Bitmap {
         val image = generateDefAvatar(theme)
 
         val paint = Paint(Paint.ANTI_ALIAS_FLAG)
-        paint.textSize = sizeSp.toFloat()
+        paint.textSize = context.spToPx(sizeSp).toFloat()
         paint.color = Color.WHITE
         paint.textAlign = Paint.Align.CENTER
 
@@ -112,18 +127,6 @@ class CircleImageView @JvmOverloads constructor(
         val textBottom = backgroundBounds.centerY() - textBounds.exactCenterY()
         val canvas = Canvas(image)
         canvas.drawText(text, backgroundBounds.centerX(), textBottom, paint)
-
-        return image
-    }
-
-    private fun generateDefAvatar(theme: Resources.Theme): Bitmap {
-        val image = Bitmap.createBitmap(layoutParams.height, layoutParams.height, Config.ARGB_8888)
-        val color = TypedValue()
-        theme.resolveAttribute(R.attr.colorAccent, color, true)
-
-
-        val canvas = Canvas(image)
-        canvas.drawColor(color.data)
 
         return image
     }
