@@ -4,6 +4,8 @@ import android.graphics.ColorFilter
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.util.TypedValue
 import android.view.View
@@ -59,6 +61,8 @@ class ProfileActivity : AppCompatActivity() {
         showCurrentMode(editMode)
 
         btn_edit.setOnClickListener {
+            viewModel.onRepoEditCompleted(wr_repository.isErrorEnabled)
+
             if (editMode) saveProfileInfo()
             editMode = !editMode
             showCurrentMode(editMode)
@@ -67,6 +71,14 @@ class ProfileActivity : AppCompatActivity() {
         btn_switch_theme.setOnClickListener {
             viewModel.switchTheme()
         }
+
+        et_repository.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(s: Editable?) {
+                viewModel.onRepositoryChanged(s.toString())
+            }
+        })
     }
 
     private fun initViewModel() {
@@ -76,6 +88,10 @@ class ProfileActivity : AppCompatActivity() {
             .observe(this, Observer { updateUI(it) })
         viewModel.getTheme()
             .observe(this, Observer { updateTheme(it) })
+        viewModel.getRepositoryError()
+            .observe(this, Observer { updateRepoError(it) })
+        viewModel.getIsRepoError()
+            .observe(this, Observer { updateRepository(it) })
     }
 
     private fun updateTheme(theme: Int) {
@@ -90,6 +106,15 @@ class ProfileActivity : AppCompatActivity() {
                     v.text = it[k].toString()
                 }
             }
+    }
+
+    private fun updateRepository(isError: Boolean) {
+        if (isError) et_repository.text?.clear()
+    }
+
+    private fun updateRepoError(isError: Boolean) {
+        wr_repository.isErrorEnabled = isError
+        wr_repository.error = if (isError) "Невалидный адрес репозитория" else null
     }
 
     private fun showCurrentMode(editMode: Boolean) {
