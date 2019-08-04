@@ -111,7 +111,7 @@ class ProfileActivity : AppCompatActivity() {
             iv_avatar.generateAvatar(Utils.toInitials(profile.firstName, profile.lastName), 48f, theme)
         } else {
             iv_avatar.setImageDrawable(getDrawable(R.drawable.avatar_default))
-            iv_avatar.setBorderWidth(0f)
+            iv_avatar.setBorderWidth(0)
         }
     }
 
