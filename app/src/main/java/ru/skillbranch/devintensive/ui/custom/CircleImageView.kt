@@ -21,7 +21,6 @@ import androidx.annotation.Px
 import androidx.core.content.ContextCompat
 import ru.skillbranch.devintensive.App
 import ru.skillbranch.devintensive.R
-import ru.skillbranch.devintensive.extensions.dpToPx
 import ru.skillbranch.devintensive.extensions.spToPx
 import kotlin.math.min
 
@@ -52,8 +51,8 @@ class CircleImageView @JvmOverloads constructor(
     @Dimension
     fun getBorderWidth(): Int = borderWidth
 
-    fun setBorderWidth(@Dimension dp: Int) {
-        borderWidth = context.dpToPx(dp.toFloat())
+    fun setBorderWidth(@Dimension px: Int) {
+        borderWidth = px
 
         invalidate()
     }
