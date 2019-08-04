@@ -17,6 +17,7 @@ import android.util.TypedValue
 import android.widget.ImageView
 import androidx.annotation.ColorRes
 import androidx.annotation.Dimension
+import androidx.annotation.Px
 import androidx.core.content.ContextCompat
 import ru.skillbranch.devintensive.App
 import ru.skillbranch.devintensive.R
@@ -32,8 +33,11 @@ class CircleImageView @JvmOverloads constructor(
 ) : ImageView(context, attrs, defStyleAttr) {
 
     private val defaultBorderColor: Int = Color.WHITE
+    @Px
+    private val defaultBorderWidth: Int = 2
+
     private var borderColor: Int = defaultBorderColor
-    private var borderWidth: Int = context.dpToPx(2f)
+    private var borderWidth: Int = defaultBorderWidth
     private var text: String? = null
 
     init {
