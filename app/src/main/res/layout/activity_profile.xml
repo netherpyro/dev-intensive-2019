@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/profile_bg" />
 
-    <ImageView android:id="@+id/imageView2"
+    <ImageView android:id="@+id/iv_avatar"
         android:layout_width="@dimen/avatar_round_size"
         android:layout_height="@dimen/avatar_round_size"
         android:contentDescription="@null"
@@ -33,9 +33,9 @@
         android:layout_marginEnd="32dp"
         android:background="@drawable/btn_round_bg"
         android:contentDescription="@null"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
-        app:layout_constraintEnd_toStartOf="@+id/imageView2"
-        app:layout_constraintTop_toTopOf="@+id/imageView2"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_avatar"
+        app:layout_constraintEnd_toStartOf="@+id/iv_avatar"
+        app:layout_constraintTop_toTopOf="@+id/iv_avatar"
         app:srcCompat="@drawable/ic_switch_day_night" />
 
     <ImageButton android:id="@+id/btn_edit"
@@ -44,23 +44,23 @@
         android:layout_marginStart="32dp"
         android:background="@drawable/btn_round_bg"
         android:contentDescription="@null"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
-        app:layout_constraintStart_toEndOf="@+id/imageView2"
-        app:layout_constraintTop_toTopOf="@+id/imageView2"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_avatar"
+        app:layout_constraintStart_toEndOf="@+id/iv_avatar"
+        app:layout_constraintTop_toTopOf="@+id/iv_avatar"
         app:srcCompat="@drawable/ic_edit_black_24dp" />
 
     <TextView android:id="@+id/tv_nick_name"
         style="@style/Profile.Header.Nickname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
-        app:layout_constraintEnd_toEndOf="@+id/imageView2"
-        app:layout_constraintStart_toStartOf="@+id/imageView2"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+        app:layout_constraintBottom_toTopOf="@+id/tv_rank"
+        app:layout_constraintEnd_toEndOf="@+id/iv_avatar"
+        app:layout_constraintStart_toStartOf="@+id/iv_avatar"
+        app:layout_constraintTop_toBottomOf="@+id/iv_avatar"
         app:layout_constraintVertical_chainStyle="packed"
         tools:text="John Doe" />
 
-    <TextView android:id="@+id/textView2"
+    <TextView android:id="@+id/tv_rank"
         style="@style/Profile.Header.Rank"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -198,7 +198,7 @@
         app:layout_constraintTop_toBottomOf="@+id/divider"
         app:srcCompat="@drawable/ic_about" />
 
-    <com.google.android.material.textfield.TextInputLayout android:id="@+id/til_about"
+    <com.google.android.material.textfield.TextInputLayout android:id="@+id/wr_about"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/spacing_normal_16"
@@ -225,7 +225,7 @@
         android:background="?attr/colorDivider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/til_about" />
+        app:layout_constraintTop_toBottomOf="@+id/wr_about" />
 
     <ImageView android:id="@+id/imageView5"
         android:layout_width="@dimen/btn_round_size_40"
@@ -237,7 +237,7 @@
         app:layout_constraintTop_toBottomOf="@+id/divider2"
         app:srcCompat="@drawable/ic_repo" />
 
-    <com.google.android.material.textfield.TextInputLayout android:id="@+id/til4"
+    <com.google.android.material.textfield.TextInputLayout android:id="@+id/wr_repository"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/spacing_normal_16"
@@ -246,7 +246,7 @@
         app:layout_constraintStart_toEndOf="@+id/imageView5"
         app:layout_constraintTop_toTopOf="@+id/imageView5">
 
-        <com.google.android.material.textfield.TextInputEditText android:id="@+id/et_repo"
+        <com.google.android.material.textfield.TextInputEditText android:id="@+id/et_repository"
             style="@style/Profile.EditText.Single"
             android:layout_width="match_parent"
             android:layout_height="46dp"
@@ -260,10 +260,10 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/spacing_normal_16"
         android:contentDescription="@null"
-        app:layout_constraintBottom_toBottomOf="@+id/til4"
+        app:layout_constraintBottom_toBottomOf="@+id/wr_repository"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/til4"
-        app:layout_constraintTop_toTopOf="@+id/til4"
+        app:layout_constraintStart_toEndOf="@+id/wr_repository"
+        app:layout_constraintTop_toTopOf="@+id/wr_repository"
         app:srcCompat="@drawable/ic_eye_24dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

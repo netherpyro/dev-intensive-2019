@@ -50,7 +50,7 @@ class ProfileActivity : AppCompatActivity() {
                 "firstName" to et_first_name,
                 "lastName" to et_last_name,
                 "about" to et_about,
-                "repository" to et_repo,
+                "repository" to et_repository,
                 "rating" to tv_rating,
                 "respect" to tv_respect)
 
@@ -105,7 +105,7 @@ class ProfileActivity : AppCompatActivity() {
         }
 
         ic_eye.visibility = if (editMode) View.GONE else View.VISIBLE
-        til_about.isCounterEnabled = editMode
+        wr_about.isCounterEnabled = editMode
 
         with(btn_edit) {
             val filter: ColorFilter? = if (editMode) {
@@ -134,7 +134,7 @@ class ProfileActivity : AppCompatActivity() {
                 firstName = et_first_name.text.toString(),
                 lastName = et_last_name.text.toString(),
                 about = et_about.text.toString(),
-                repository = et_repo.text.toString()
+                repository = et_repository.text.toString()
         ).apply {
             viewModel.saveProfileData(this)
         }
