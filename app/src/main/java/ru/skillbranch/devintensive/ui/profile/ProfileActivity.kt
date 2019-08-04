@@ -9,8 +9,12 @@ import android.view.View
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.activity_profile.*
 import ru.skillbranch.devintensive.R
+import ru.skillbranch.devintensive.models.Profile
+import ru.skillbranch.devintensive.viewmodels.ProfileViewModel
 
 class ProfileActivity : AppCompatActivity() {
 
@@ -21,12 +25,14 @@ class ProfileActivity : AppCompatActivity() {
 
     private var editMode = false
     lateinit var viewFields: Map<String, TextView>
+    private lateinit var viewModel: ProfileViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
 
         initViews(savedInstanceState)
+        initViewModel()
     }
 
     override fun onSaveInstanceState(outState: Bundle?) {
@@ -49,9 +55,26 @@ class ProfileActivity : AppCompatActivity() {
         showCurrentMode(editMode)
 
         btn_edit.setOnClickListener {
+            if (editMode) saveProfileInfo()
             editMode = !editMode
             showCurrentMode(editMode)
         }
+    }
+
+    private fun initViewModel() {
+        viewModel = ViewModelProviders.of(this)
+            .get(ProfileViewModel::class.java)
+        viewModel.getProfileData()
+            .observe(this, Observer { updateUI(it) })
+    }
+
+    private fun updateUI(profile: Profile) {
+        profile.toMap()
+            .also {
+                for ((k, v) in viewFields) {
+                    v.text = it[k].toString()
+                }
+            }
     }
 
     private fun showCurrentMode(editMode: Boolean) {
@@ -92,4 +115,14 @@ class ProfileActivity : AppCompatActivity() {
         return value.data
     }
 
+    private fun saveProfileInfo() {
+        Profile(
+                firstName = et_first_name.text.toString(),
+                lastName = et_last_name.text.toString(),
+                about = et_about.text.toString(),
+                repository = et_repo.text.toString()
+        ).apply {
+            viewModel.saveProfileData(this)
+        }
+    }
 }
