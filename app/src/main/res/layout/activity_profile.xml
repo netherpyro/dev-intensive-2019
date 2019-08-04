@@ -27,7 +27,7 @@
         app:layout_constraintVertical_chainStyle="packed"
         app:srcCompat="@drawable/avatar_default" />
 
-    <ImageButton android:id="@+id/imageButton"
+    <ImageButton android:id="@+id/btn_switch_theme"
         android:layout_width="@dimen/btn_round_size_40"
         android:layout_height="@dimen/btn_round_size_40"
         android:layout_marginEnd="32dp"
@@ -73,7 +73,7 @@
     <View android:id="@+id/view"
         android:layout_width="0dp"
         android:layout_height="80dp"
-        android:background="@color/color_primary_light"
+        android:background="?attr/colorAccentedSurface"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
@@ -175,7 +175,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/profile_hint_last_name"
-            android:textColor="@color/color_primary_light"
             tools:text="Doe" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -184,7 +183,7 @@
         android:layout_height="1dp"
         android:layout_marginStart="72dp"
         android:layout_marginTop="5dp"
-        android:background="@color/color_divider_dark"
+        android:background="?attr/colorDivider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/til2" />
@@ -223,7 +222,7 @@
         android:layout_height="1dp"
         android:layout_marginStart="72dp"
         android:layout_marginTop="5dp"
-        android:background="@color/color_divider_dark"
+        android:background="?attr/colorDivider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/til_about" />

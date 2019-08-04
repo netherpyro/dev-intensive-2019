@@ -4,6 +4,7 @@ import android.graphics.ColorFilter
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.os.Bundle
+import android.util.Log
 import android.util.TypedValue
 import android.view.View
 import android.widget.EditText
@@ -33,6 +34,8 @@ class ProfileActivity : AppCompatActivity() {
 
         initViews(savedInstanceState)
         initViewModel()
+
+        Log.d(this.javaClass.simpleName, "onCreate::")
     }
 
     override fun onSaveInstanceState(outState: Bundle?) {
@@ -59,6 +62,10 @@ class ProfileActivity : AppCompatActivity() {
             editMode = !editMode
             showCurrentMode(editMode)
         }
+
+        btn_switch_theme.setOnClickListener {
+            viewModel.switchTheme()
+        }
     }
 
     private fun initViewModel() {
@@ -66,6 +73,13 @@ class ProfileActivity : AppCompatActivity() {
             .get(ProfileViewModel::class.java)
         viewModel.getProfileData()
             .observe(this, Observer { updateUI(it) })
+        viewModel.getTheme()
+            .observe(this, Observer { updateTheme(it) })
+    }
+
+    private fun updateTheme(theme: Int) {
+        Log.d(this.javaClass.simpleName, "updateTheme::")
+        delegate.setLocalNightMode(theme)
     }
 
     private fun updateUI(profile: Profile) {
