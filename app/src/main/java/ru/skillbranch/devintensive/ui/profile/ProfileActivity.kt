@@ -4,6 +4,7 @@ import android.graphics.ColorFilter
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -32,6 +33,7 @@ class ProfileActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme)
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
 
@@ -41,21 +43,22 @@ class ProfileActivity : AppCompatActivity() {
         Log.d(this.javaClass.simpleName, "onCreate::")
     }
 
-    override fun onSaveInstanceState(outState: Bundle?) {
-        super.onSaveInstanceState(outState)
-        outState?.putBoolean(KEY_EDIT_MODE, editMode)
+    override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
+        super.onSaveInstanceState(outState, outPersistentState)
+        outState.putBoolean(KEY_EDIT_MODE, editMode)
     }
 
     private fun initViews(savedInstanceState: Bundle?) {
         viewFields = mapOf(
-                "nickName" to tv_nick_name,
-                "rank" to tv_rating,
-                "firstName" to et_first_name,
-                "lastName" to et_last_name,
-                "about" to et_about,
-                "repository" to et_repository,
-                "rating" to tv_rating,
-                "respect" to tv_respect)
+            "nickName" to tv_nick_name,
+            "rank" to tv_rating,
+            "firstName" to et_first_name,
+            "lastName" to et_last_name,
+            "about" to et_about,
+            "repository" to et_repository,
+            "rating" to tv_rating,
+            "respect" to tv_respect
+        )
 
         editMode = savedInstanceState?.getBoolean(KEY_EDIT_MODE, false) ?: false
         showCurrentMode(editMode)
@@ -108,7 +111,7 @@ class ProfileActivity : AppCompatActivity() {
             }
 
         if (profile.firstName.isNotBlank() || profile.lastName.isNotBlank()) {
-            iv_avatar.generateAvatar(Utils.toInitials(profile.firstName, profile.lastName), 48f, theme)
+            iv_avatar.setInitialsAvatar(Utils.toInitials(profile.firstName, profile.lastName) ?: "??")
         } else {
             iv_avatar.setImageDrawable(getDrawable(R.drawable.avatar_default))
             iv_avatar.setBorderWidth(0)
@@ -166,10 +169,10 @@ class ProfileActivity : AppCompatActivity() {
 
     private fun saveProfileInfo() {
         Profile(
-                firstName = et_first_name.text.toString(),
-                lastName = et_last_name.text.toString(),
-                about = et_about.text.toString(),
-                repository = et_repository.text.toString()
+            firstName = et_first_name.text.toString(),
+            lastName = et_last_name.text.toString(),
+            about = et_about.text.toString(),
+            repository = et_repository.text.toString()
         ).apply {
             viewModel.saveProfileData(this)
         }

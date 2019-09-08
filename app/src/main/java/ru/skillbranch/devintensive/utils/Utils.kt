@@ -99,34 +99,34 @@ object Utils {
         return when (units) {
             TimeUnits.SECOND -> {
                 when (plural) {
-                    Utils.Plural.ONE -> "секунду"
-                    Utils.Plural.FEW -> "секунды"
-                    Utils.Plural.MANY -> "секунд"
-                    Utils.Plural.OTHER -> "секунд"
+                    Plural.ONE -> "секунду"
+                    Plural.FEW -> "секунды"
+                    Plural.MANY -> "секунд"
+                    Plural.OTHER -> "секунд"
                 }
             }
             TimeUnits.MINUTE -> {
                 when (plural) {
-                    Utils.Plural.ONE -> "минуту"
-                    Utils.Plural.FEW -> "минуты"
-                    Utils.Plural.MANY -> "минут"
-                    Utils.Plural.OTHER -> "минут"
+                    Plural.ONE -> "минуту"
+                    Plural.FEW -> "минуты"
+                    Plural.MANY -> "минут"
+                    Plural.OTHER -> "минут"
                 }
             }
             TimeUnits.HOUR -> {
                 when (plural) {
-                    Utils.Plural.ONE -> "час"
-                    Utils.Plural.FEW -> "часа"
-                    Utils.Plural.MANY -> "часов"
-                    Utils.Plural.OTHER -> "часов"
+                    Plural.ONE -> "час"
+                    Plural.FEW -> "часа"
+                    Plural.MANY -> "часов"
+                    Plural.OTHER -> "часов"
                 }
             }
             TimeUnits.DAY -> {
                 when (plural) {
-                    Utils.Plural.ONE -> "день"
-                    Utils.Plural.FEW -> "дня"
-                    Utils.Plural.MANY -> "дней"
-                    Utils.Plural.OTHER -> "дней"
+                    Plural.ONE -> "день"
+                    Plural.FEW -> "дня"
+                    Plural.MANY -> "дней"
+                    Plural.OTHER -> "дней"
                 }
             }
         }
@@ -134,17 +134,17 @@ object Utils {
 
     private fun getPlural(value: Long): Plural {
         if (abs(value % 100) in 10..19) {
-            return Utils.Plural.MANY
+            return Plural.MANY
         }
 
         return when (abs(value % 10)) {
-            0L -> Utils.Plural.MANY
-            1L -> Utils.Plural.ONE
-            2L -> Utils.Plural.FEW
-            3L -> Utils.Plural.FEW
-            4L -> Utils.Plural.FEW
-            in 5L..9L -> Utils.Plural.MANY
-            else -> Utils.Plural.OTHER
+            0L -> Plural.MANY
+            1L -> Plural.ONE
+            2L -> Plural.FEW
+            3L -> Plural.FEW
+            4L -> Plural.FEW
+            in 5L..9L -> Plural.MANY
+            else -> Plural.OTHER
         }
     }
 

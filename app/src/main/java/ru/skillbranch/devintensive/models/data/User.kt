@@ -1,26 +1,27 @@
-package ru.skillbranch.devintensive.models
+package ru.skillbranch.devintensive.models.data
 
+import ru.skillbranch.devintensive.extensions.humanizeDiff
 import ru.skillbranch.devintensive.utils.Utils
-import java.util.Date
+import java.util.*
 
 /**
  * @author mmikhailov on 2019-06-27.
  */
 data class User(
-        val id: String,
-        var firstName: String?,
-        var lastName: String?,
-        var avatar: String?,
-        var rating: Int = 0,
-        var respect: Int = 0,
-        var lastVisit: Date? = Date(),
-        var isOnline: Boolean = false
+    val id: String,
+    var firstName: String?,
+    var lastName: String?,
+    var avatar: String?,
+    var rating: Int = 0,
+    var respect: Int = 0,
+    val lastVisit: Date? = null,
+    var isOnline: Boolean = false
 ) {
     constructor(id: String, firstName: String?, lastName: String?) : this(
-            id = id,
-            firstName = firstName,
-            lastName = lastName,
-            avatar = null
+        id = id,
+        firstName = firstName,
+        lastName = lastName,
+        avatar = null
     )
 
     companion object Factory {
@@ -30,9 +31,31 @@ data class User(
             ++lastId
 
             val (firstName, lastName) = Utils.parseFullName(fullName)
-            return User("$lastId", firstName, lastName)
+            return User(
+                "$lastId",
+                firstName,
+                lastName
+            )
         }
 
+    }
+
+    fun toUserItem(): UserItem {
+        val lastActivity = when {
+            isOnline -> "online"
+            lastVisit == null -> "Еще ни разу не заходил"
+            else -> "Последний раз был ${lastVisit.humanizeDiff()}"
+        }
+
+        return UserItem(
+            id,
+            "${firstName.orEmpty()} ${lastName.orEmpty()}",
+            Utils.toInitials(firstName, lastName),
+            avatar,
+            lastActivity,
+            false,
+            isOnline
+        )
     }
 
     class Builder {
@@ -88,9 +111,18 @@ data class User(
         }
 
         fun build(): User {
-            if (this@Builder::uid.isInitialized.not()) uid = Factory.lastId.inc().toString()
+            if (this@Builder::uid.isInitialized.not()) uid = lastId.inc().toString()
 
-            return User(uid, firstName, lastName, avatar, rating, respect, lastVisit, isOnline)
+            return User(
+                uid,
+                firstName,
+                lastName,
+                avatar,
+                rating,
+                respect,
+                lastVisit,
+                isOnline
+            )
         }
     }
 
