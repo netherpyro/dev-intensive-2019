@@ -29,13 +29,11 @@
         android:layout_marginEnd="@dimen/spacing_normal_16"
         android:layout_toStartOf="@id/tv_date_single"
         android:layout_toEndOf="@id/iv_avatar_single"
-        android:fontFamily="sans-serif-medium"
-        android:textColor="@color/color_primary"
-        android:textSize="14sp"
         tools:text="Chat title" />
 
     <TextView
         android:id="@+id/tv_message_single"
+        style="@style/ChatItem.Message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_title_single"
@@ -43,14 +41,12 @@
         android:layout_marginEnd="@dimen/spacing_normal_16"
         android:layout_toStartOf="@id/tv_counter_single"
         android:layout_toEndOf="@id/iv_avatar_single"
-        android:textColor="@color/color_gray_dark"
-        android:textSize="14sp"
         tools:text="This is message." />
 
     <TextView
         android:id="@+id/tv_date_single"
-        android:layout_width="wrap_content"
         style="@style/ChatItem.Date"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
@@ -58,8 +54,8 @@
 
     <TextView
         android:id="@+id/tv_counter_single"
-        android:layout_width="wrap_content"
         style="@style/ChatItem.Counter"
+        android:layout_width="wrap_content"
         android:layout_height="@dimen/counter_size"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"

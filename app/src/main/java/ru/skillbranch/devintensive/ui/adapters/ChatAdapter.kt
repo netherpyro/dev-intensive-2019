@@ -147,7 +147,7 @@ class ChatAdapter(private val listener: (ChatItem) -> Unit) :
 
             with(tv_message_author) {
                 visibility = if (item.messageCount > 0) View.VISIBLE else View.GONE
-                text = item.author
+                text = (if (item.author.isNullOrEmpty()) "" else "@") + item.author
             }
 
             itemView.setOnClickListener { listener(item) }
@@ -175,7 +175,7 @@ class ChatAdapter(private val listener: (ChatItem) -> Unit) :
 
             tv_title_archive.text = item.title
             tv_message_archive.text = item.shortDescription
-            tv_message_author_archive.text = item.author
+            tv_message_author_archive.text = (if (item.author.isNullOrEmpty()) "" else "@") + item.author
 
             itemView.setOnClickListener { listener(item) }
         }
